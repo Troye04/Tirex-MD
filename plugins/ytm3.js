@@ -6,17 +6,12 @@ let handler = async(m, { conn, args, isPrems, isOwner }) => {
     let chat = global.db.data.chats[m.chat]
     let server = (args[1] || servers[0]).toLowerCase()
     let { dl_link, thumb, title, filesize, filesizeF } = await yta(args[0], servers.includes(server) ? server : servers[0])
-    let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < filesize
-    conn.sendFile(m.chat, thumb, 'thumbnail.jpg', `
-*Title:* ${title}
-*Filesize:* ${filesizeF}
-*${isLimit ? 'Pakai ': ''}Link:* ${await shortlink(dl_link)}
-`.trim(), m)
+    let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < filesize
     if (!isLimit) await conn.sendMessage(m.chat, { audio: { url: dl_link }, mimetype: 'audio/mp4' }, {quoted: m})
 }
-handler.help = ['ytmp3 <query>']
+handler.help = ['ytm3 <query>']
 handler.tags = ['downloader']
-handler.command = /^yta|ytaudio|ytmp3$/i
+handler.command = /^ytm3$/i
 handler.limit = true
 handler.group = true 
 module.exports = handler
