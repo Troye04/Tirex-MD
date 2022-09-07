@@ -45,7 +45,7 @@ handler.command = /^play$/i
 
 handler.limit = true
 handler.group = true
-handler.owner = true
+
 module.exports = handler
 
 async function shortlink(url) {
