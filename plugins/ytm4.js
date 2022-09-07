@@ -19,10 +19,11 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
     }
   }
   if (!link) throw lastError
-  let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < video.fileSize
+  let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < video.fileSize
+
   if (!isLimit) conn.sendFile(m.chat, link, title + '.mp4', `
-📌 *Title:* ${title}
-🗎 *Filesize:* ${video.fileSizeH}
+
+
 `.trim(), m, false, {
     ..._thumb,
     asDocument: chat.useDocument
@@ -46,11 +47,13 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
   let chat = global.db.data.chats[m.chat]
   let server = (args[1] || servers[0]).toLowerCase()
   let { dl_link, thumb, title, filesize, filesizeF} = await ytv(args[0], servers.includes(server) ? server : servers[0])
-  let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < filesize
+  let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < filesize
+
  conn.sendFile(m.chat, dl_link, title + '.mp4', `
-*Title:* ${title}
-*Filesize:* ${filesizeF}
-`.trim(), m, false, {
+
+
+`.trim(), m, false, {
+
   asDocument: chat.useDocument
 })
 }
